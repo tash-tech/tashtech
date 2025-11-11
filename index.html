@@ -2,79 +2,167 @@
 <html lang="de" data-lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- رندر صحیح روی موبایل (به‌ویژه iOS) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="color-scheme" content="dark light">
+
   <title>TashTech.de – IT & Netzwerke in Frankfurt, Mainz & Wiesbaden</title>
   <meta name="description" content="TashTech.de: IT-Support, Internet-Installation, PC-Aufrüstung, Netzwerk & Server für Privat & kleine Unternehmen im Raum Frankfurt, Mainz, Wiesbaden und Umgebung." />
   <meta name="theme-color" content="#0b1220" />
+
   <link rel="icon" href="favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- فونت‌ها -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Exo:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Exo:wght@600;700&family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    :root{--bg:#0b1220;--card:#0f172a;--text:#e2e8f0;--muted:#94a3b8;--brand:#2dd4bf;--accent:#475569}
+    /* ---------- پایه ---------- */
+    :root{
+      --bg:#0b1220; --panel:#0f172a; --text:#e2e8f0; --muted:#94a3b8;
+      --brand:#2dd4bf; --border:#1f2937; --radius:16px;
+      --space:clamp(12px, 2vw, 20px);
+      --container:clamp(960px, 92vw, 1120px);
+      --h1: clamp(28px, 4.6vw, 52px);
+      --h2: clamp(22px, 3.4vw, 28px);
+      --h3: clamp(18px, 2.6vw, 22px);
+      --p:  clamp(15px, 1.9vw, 17px);
+    }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:linear-gradient(180deg,#0b1220 0%,#0b1220 30%,#0a1020 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial}
-    a{color:var(--brand);text-decoration:none}
+    html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+    body{
+      margin:0; background:linear-gradient(180deg,#0b1220 0%,#0b1220 30%,#0a1020 100%);
+      color:var(--text);
+      font:400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+    }
+    a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
-    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,18,32,.85);border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
-    .container{max-width:1120px;margin-inline:auto;padding:0 20px}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:88px}
-    .logo{display:flex;align-items:center;gap:14px}
-    .logo img{height:56px;width:auto;display:block}
-    .brand{font-family:Exo,Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial;font-weight:700;letter-spacing:.3px;font-size:22px}
-    nav a{margin-left:28px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+
+    /* ---------- کانتینر و گپ ---------- */
+    .container{width:min(100%, var(--container)); margin-inline:auto; padding-inline:var(--space)}
+    .flow>*+*{margin-block-start:var(--space)}
+    .pad{padding:var(--space)}
+    .card{
+      background:linear-gradient(180deg,var(--panel),#0b1220);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      padding:clamp(14px,2.4vw,20px);
+    }
+
+    /* ---------- هدر/ناوبری ---------- */
+    header.header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(160%) blur(8px);
+      background:color-mix(in srgb, var(--bg) 84%, transparent);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex; align-items:center; gap:var(--space);
+      padding-block:10px; height:auto;
+    }
+    .nav__brand{display:flex; align-items:center; gap:12px}
+    .nav__brand img{height:32px; width:auto; display:block}
+    .brand{font-family:Exo,Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial; font-weight:700; letter-spacing:.3px; font-size:20px}
+
+    .nav__links{margin-inline-start:auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+    .nav__link{padding:.4rem .6rem}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:.6rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text);
+    }
     .btn:hover{background:rgba(255,255,255,.08)}
-    /* Language switch visible and highlighted */
-    .lang-switch{display:flex;gap:10px;align-items:center}
+    .btn--primary{background:var(--brand); color:#062a26; border-color:transparent}
+
+    /* منوی موبایل */
+    .nav-toggle{display:none}
+    @media (max-width: 880px){
+      .nav__links{display:none}
+      .nav-toggle{display:inline-flex; margin-inline-start:auto}
+      .nav--open .nav__links{
+        display:flex; flex-direction:column; width:100%;
+        padding-block:10px; gap:10px;
+      }
+    }
+
+    /* ---------- قهرمان ---------- */
+    .hero{padding-block:clamp(60px, 10vw, 100px); border-bottom:1px solid rgba(255,255,255,.06)}
+    .hero h1{font-size:var(--h1); line-height:1.2; margin:0 0 .5em}
+    .hero p{color:var(--muted); font-size:var(--p); max-width:72ch; margin:0}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+    .chip,.badge{
+      border:1px solid rgba(255,255,255,.14);
+      padding:.5rem .75rem; border-radius:999px;
+      color:#cbd5e1; background:rgba(255,255,255,.04); display:inline-block;
+      font-size:14px;
+    }
+
+    /* ---------- گرید انعطاف ---------- */
+    .grid{
+      --min: 240px;
+      display:grid; gap:var(--space);
+      grid-template-columns:repeat(auto-fit, minmax(var(--min), 1fr));
+    }
+
+    .section-title{font-size:var(--h2); margin:0 0 .5em}
+    .muted{color:var(--muted)}
+    .price .big{font-weight:700; font-size:clamp(22px,3vw,28px)}
+
+    /* ---------- فرم ---------- */
+    form{display:grid; gap:12px}
+    textarea{
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04);
+      color:var(--text); min-height:120px; resize:vertical;
+    }
+
+    /* ---------- فوتر ---------- */
+    footer{padding:30px 0 60px; border-top:1px solid rgba(255,255,255,.08); margin-top:40px; color:#a8b3c7; text-align:center}
+    .tiny{font-size:12px; color:#93a0b4}
+
+    /* ---------- سوئیچ زبان ---------- */
+    .lang-switch{display:flex; gap:10px; align-items:center}
     .lang-switch .btn{border:1px solid rgba(45,212,191,.7); background:rgba(45,212,191,.18); color:#e6fffb; font-weight:700; letter-spacing:.2px}
     .lang-switch .btn:hover{background:rgba(45,212,191,.35)}
     html[data-lang="de"] #btn-de, html[data-lang="fa"] #btn-fa{
       background:var(--brand); color:#0b1220; border-color:var(--brand);
       box-shadow:0 0 0 2px rgba(45,212,191,.25) inset;
     }
-    .hero{padding:100px 0 60px;border-bottom:1px solid rgba(255,255,255,.06)}
-    .hero h1{font-size:clamp(28px,5vw,52px);line-height:1.1;margin:0 0 16px}
-    .hero p{color:var(--muted);max-width:820px}
-    .badge{border:1px solid rgba(255,255,255,.14);padding:8px 12px;border-radius:999px;color:#cbd5e1;background:rgba(255,255,255,.04);display:inline-block;margin:6px 6px 0 0}
-    .grid{display:grid;gap:18px}
-    @media(min-width:900px){.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}}
-    .card{background:linear-gradient(180deg,#0f172a,#0b1220);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px}
-    .card h3{margin:0 0 8px;font-size:20px}
-    .card p{margin:0;color:#b6c2d9}
-    .section-title{font-size:26px;margin:0 0 10px}
-    .muted{color:var(--muted)}
-    .price{padding:24px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#0f172a,#0b1220)}
-    .price h4{margin:0 0 6px}
-    .price .big{font-size:28px;font-weight:700}
-    form{display:grid;gap:12px}
-    textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text);min-height:120px}
-    footer{padding:30px 0 60px;border-top:1px solid rgba(255,255,255,.08);margin-top:40px;color:#a8b3c7;text-align:center}
-    .tiny{font-size:12px;color:#93a0b4}
-    /* Language visibility */
-    .lang-de{display:block}
-    .lang-fa{display:none}
-    html[data-lang="fa"] .lang-de{display:none}
-    html[data-lang="fa"] .lang-fa{display:block}
-    html[data-lang="fa"]{direction:rtl}
-    html[data-lang="fa"] nav a{margin-right:28px;margin-left:0}
-    @media print{header,.btn,.lang-switch{display:none !important} body{background:#fff;color:#000} .card{border:1px solid #ddd;background:#fff}}
+
+    /* نمایش/اختفاء زبان‌ها */
+    .lang-de{display:block} .lang-fa{display:none}
+    html[data-lang="fa"] .lang-de{display:none} html[data-lang="fa"] .lang-fa{display:block}
+
+    /* جهت RTL */
+    html[data-lang="fa"]{direction:rtl; font-family:"Vazirmatn","IRANSansX",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial}
+    html[data-lang="fa"] .nav__links{margin-inline-start:0; margin-inline-end:auto}
+
+    /* چاپ */
+    @media print{header,.btn,.lang-switch{display:none !important} body{background:#fff;color:#000} .card{border:1px solid #ddd; background:#fff}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo">
+  <!-- هدر -->
+  <header class="header">
+    <div class="container nav" id="topNav">
+      <a class="nav__brand" href="/">
         <img src="logo_header.png" alt="TashTech.de Logo">
-        <span class="brand">TashTech.de</span>
-      </div>
-      <nav>
-        <a data-i18n="nav_services" href="#services">Leistungen</a>
-        <a data-i18n="nav_about" href="#about">Über mich</a>
-        <a data-i18n="nav_prices" href="#preise">Preise</a>
-        <a data-i18n="nav_contact" href="#kontakt" class="btn">Kontakt</a>
+        <strong class="brand">TashTech.de</strong>
+      </a>
+
+      <!-- دکمه همبرگری موبایل -->
+      <button class="nav-toggle btn" aria-expanded="false" aria-controls="mainmenu" type="button">☰</button>
+
+      <nav id="mainmenu" class="nav__links">
+        <a class="nav__link" data-i18n="nav_services" href="#services">Leistungen</a>
+        <a class="nav__link" data-i18n="nav_about" href="#about">Über mich</a>
+        <a class="nav__link" data-i18n="nav_prices" href="#preise">Preise</a>
+        <a class="btn btn--primary" data-i18n="nav_contact" href="#kontakt">Kontakt</a>
       </nav>
+
       <div class="lang-switch">
         <button id="btn-de" class="btn" onclick="setLang('de')" aria-label="Deutsch" type="button">DE</button>
         <button id="btn-fa" class="btn" onclick="setLang('fa')" aria-label="Persisch" type="button">FA</button>
@@ -82,47 +170,49 @@
     </div>
   </header>
 
-  <main>
-    <!-- German content -->
+  <main class="flow">
+    <!-- آلمانی -->
     <section class="hero container lang-de">
       <h1>IT-Support & Internet-Installation im Rhein-Main-Gebiet</h1>
       <p>Unterstützung für Privat & kleine Unternehmen in <strong>Frankfurt</strong>, <strong>Mainz</strong>, <strong>Wiesbaden</strong> und Umgebung – z.&nbsp;B. Rüsselsheim, Raunheim, Kelsterbach, Hofheim, Flörsheim. PC-Aufrüstung, Windows, Netzwerk & kleine Server (NAS/Windows).</p>
-      <span class="badge">Vodafone-Techniker (Kabel/Koax)</span>
-      <span class="badge">PC-Reparatur & Aufrüstung</span>
-      <span class="badge">Netzwerk & Server</span>
-      <div style="margin-top:20px"><a class="btn" href="#kontakt">Angebot anfragen</a></div>
+      <div class="chips">
+        <span class="chip">Vodafone-Techniker (Kabel/Koax)</span>
+        <span class="chip">PC-Reparatur & Aufrüstung</span>
+        <span class="chip">Netzwerk & Server</span>
+      </div>
+      <div style="margin-top:14px"><a class="btn" href="#kontakt">Angebot anfragen</a></div>
     </section>
 
-    <section id="services" class="container lang-de" style="padding:60px 0">
+    <section id="services" class="container lang-de pad">
       <h2 class="section-title">Leistungen</h2>
-      <div class="grid grid-3">
-        <div class="card"><h3>PC-Reparatur & Upgrade</h3><p>Hardware-Tausch, SSD/RAM, Reinigung, Leistungs-Tuning, Datenübernahme.</p></div>
-        <div class="card"><h3>Windows & Software</h3><p>Neuinstallation, Treiber, Office, Antivirus, Backup-Konzepte.</p></div>
-        <div class="card"><h3>Internet & WLAN</h3><p>Router, Repeater, Mesh-WLAN, LAN-Verkabelung, Signal-Optimierung.</p></div>
-        <div class="card"><h3>Server & NAS</h3><p>Einrichtung kleiner Server (Windows/TrueNAS/Synology), Freigaben, Benutzer, Remote-Zugriff.</p></div>
-        <div class="card"><h3>Netzwerk-Sicherheit</h3><p>Firewall-Grundschutz, Updates, Gast-WLAN, Kinderschutz, Monitoring.</p></div>
-        <div class="card"><h3>Beratung & Schulung</h3><p>Geräte-Kaufberatung, Einweisung für Team & Familie, einfache Doku.</p></div>
+      <div class="grid">
+        <article class="card"><h3>PC-Reparatur & Upgrade</h3><p>Hardware-Tausch, SSD/RAM, Reinigung, Leistungs-Tuning, Datenübernahme.</p></article>
+        <article class="card"><h3>Windows & Software</h3><p>Neuinstallation, Treiber, Office, Antivirus, Backup-Konzepte.</p></article>
+        <article class="card"><h3>Internet & WLAN</h3><p>Router, Repeater, Mesh-WLAN, LAN-Verkabelung, Signal-Optimierung.</p></article>
+        <article class="card"><h3>Server & NAS</h3><p>Einrichtung kleiner Server (Windows/TrueNAS/Synology), Freigaben, Benutzer, Remote-Zugriff.</p></article>
+        <article class="card"><h3>Netzwerk-Sicherheit</h3><p>Firewall-Grundschutz, Updates, Gast-WLAN, Kinderschutz, Monitoring.</p></article>
+        <article class="card"><h3>Beratung & Schulung</h3><p>Geräte-Kaufberatung, Einweisung für Team & Familie, einfache Doku.</p></article>
       </div>
     </section>
 
-    <section id="about" class="container lang-de" style="padding:40px 0">
+    <section id="about" class="container lang-de pad">
       <h2 class="section-title">Über mich</h2>
       <div class="card">
         <p>Ich bin <strong>Amir Jamal Tashian</strong> aus Rüsselsheim – Vodafone-Techniker & IT-Supporter. Praxisnah, pünktlich und transparent, damit Ihre Technik einfach funktioniert. Ob Installation, Netzwerk, PC-Service oder kleine Server – ich unterstütze Sie kompetent und persönlich.</p>
       </div>
     </section>
 
-    <section id="preise" class="container lang-de" style="padding:40px 0">
+    <section id="preise" class="container lang-de pad">
       <h2 class="section-title">Preise</h2>
-      <div class="grid grid-3">
-        <div class="price"><h4>Fernwartung</h4><div class="big">€39 / 30 Min</div><p class="muted">TeamViewer oder AnyDesk.</p></div>
-        <div class="price"><h4>Vor Ort</h4><div class="big">€69 / Std</div><p class="muted">Analyse, WLAN, PC, Beratung.</p></div>
-        <div class="price"><h4>Server / NAS</h4><div class="big">€89 / Std</div><p class="muted">Einrichtung, Backup, Benutzerrechte, Dokumentation.</p></div>
+      <div class="grid">
+        <article class="card price"><h4>Fernwartung</h4><div class="big">€39 / 30 Min</div><p class="muted">TeamViewer oder AnyDesk.</p></article>
+        <article class="card price"><h4>Vor Ort</h4><div class="big">€69 / Std</div><p class="muted">Analyse, WLAN, PC, Beratung.</p></article>
+        <article class="card price"><h4>Server / NAS</h4><div class="big">€89 / Std</div><p class="muted">Einrichtung, Backup, Benutzerrechte, Dokumentation.</p></article>
       </div>
       <p class="tiny">*Richtwerte (zzgl. ggf. Anfahrt/Material). Finale Angebote nach kurzer Abstimmung.</p>
     </section>
 
-    <section id="kontakt" class="container lang-de" style="padding:60px 0">
+    <section id="kontakt" class="container lang-de pad">
       <h2 class="section-title">Kontakt</h2>
       <div class="card">
         <p>📧 <a href="mailto:info@tashtech.de">info@tashtech.de</a><br>📍 Frankfurt am Main</p>
@@ -133,46 +223,48 @@
       </div>
     </section>
 
-    <!-- Persian content -->
+    <!-- فارسی -->
     <section class="hero container lang-fa">
       <h1>پشتیبانی IT و نصب اینترنت در منطقه راین-ماین</h1>
       <p>خدمات برای خانه‌ها و شرکت‌های کوچک در <strong>فرانکفورت</strong>، <strong>ماینتس</strong>، <strong>ویسبادن</strong> و شهرهای اطراف (روسلزهایم، رانهایم، کلسترباخ، هوفهایم، فلورسهایم). ارتقای کامپیوتر، ویندوز، شبکه و سرورهای کوچک (NAS/Windows).</p>
-      <span class="badge">تکنسین Vodafone (کابل/کواکسیال)</span>
-      <span class="badge">تعمیر و ارتقای کامپیوتر</span>
-      <span class="badge">شبکه و سرور</span>
-      <div style="margin-top:20px"><a class="btn" href="#kontakt-fa">درخواست قیمت</a></div>
+      <div class="chips">
+        <span class="badge">تکنسین Vodafone (کابل/کواکسیال)</span>
+        <span class="badge">تعمیر و ارتقای کامپیوتر</span>
+        <span class="badge">شبکه و سرور</span>
+      </div>
+      <div style="margin-top:14px"><a class="btn" href="#kontakt-fa">درخواست قیمت</a></div>
     </section>
 
-    <section id="services-fa" class="container lang-fa" style="padding:60px 0">
+    <section id="services-fa" class="container lang-fa pad">
       <h2 class="section-title">خدمات</h2>
-      <div class="grid grid-3">
-        <div class="card"><h3>تعمیر و ارتقا</h3><p>تعویض قطعات، SSD/RAM، تمیزکاری، افزایش کارایی، انتقال داده‌ها.</p></div>
-        <div class="card"><h3>ویندوز و نرم‌افزار</h3><p>نصب مجدد، درایورها، آفیس، آنتی‌ویروس، برنامه پشتیبان‌گیری.</p></div>
-        <div class="card"><h3>اینترنت و وای‌فای</h3><p>روتر، ریپیتر، مش وای‌فای، کابل‌کشی LAN، بهینه‌سازی سیگنال.</p></div>
-        <div class="card"><h3>سرور و NAS</h3><p>راه‌اندازی سرورهای کوچک (Windows/TrueNAS/Synology)، کاربران و دسترسی‌ها، ریموت.</p></div>
-        <div class="card"><h3>امنیت شبکه</h3><p>فایروال پایه، به‌روزرسانی‌ها، وای‌فای مهمان، کنترل والدین، مانیتورینگ.</p></div>
-        <div class="card"><h3>مشاوره و آموزش</h3><p>مشاوره خرید، آموزش خانواده/تیم، مستندسازی ساده.</p></div>
+      <div class="grid">
+        <article class="card"><h3>تعمیر و ارتقا</h3><p>تعویض قطعات، SSD/RAM، تمیزکاری، افزایش کارایی، انتقال داده‌ها.</p></article>
+        <article class="card"><h3>ویندوز و نرم‌افزار</h3><p>نصب مجدد، درایورها، آفیس، آنتی‌ویروس، برنامه پشتیبان‌گیری.</p></article>
+        <article class="card"><h3>اینترنت و وای‌فای</h3><p>روتر، ریپیتر، مش وای‌فای، کابل‌کشی LAN، بهینه‌سازی سیگنال.</p></article>
+        <article class="card"><h3>سرور و NAS</h3><p>راه‌اندازی سرورهای کوچک (Windows/TrueNAS/Synology)، کاربران و دسترسی‌ها، ریموت.</p></article>
+        <article class="card"><h3>امنیت شبکه</h3><p>فایروال پایه، به‌روزرسانی‌ها، وای‌فای مهمان، کنترل والدین، مانیتورینگ.</p></article>
+        <article class="card"><h3>مشاوره و آموزش</h3><p>مشاوره خرید، آموزش خانواده/تیم، مستندسازی ساده.</p></article>
       </div>
     </section>
 
-    <section id="about-fa" class="container lang-fa" style="padding:40px 0">
+    <section id="about-fa" class="container lang-fa pad">
       <h2 class="section-title">درباره من</h2>
       <div class="card">
         <p>من <strong>امیر جمال تاشیان</strong> از روسلزهایم هستم—تکنسین Vodafone و پشتیبان IT. هدفم این است که تکنولوژی برای شما ساده و مطمئن کار کند. از نصب و راه‌اندازی تا شبکه، خدمات کامپیوتر و سرورهای کوچک کنار شما هستم.</p>
       </div>
     </section>
 
-    <section id="preise-fa" class="container lang-fa" style="padding:40px 0">
+    <section id="preise-fa" class="container lang-fa pad">
       <h2 class="section-title">تعرفه‌ها</h2>
-      <div class="grid grid-3">
-        <div class="price"><h4>ریموت</h4><div class="big">€39 / ۳۰ دقیقه</div><p class="muted">از طریق TeamViewer یا AnyDesk.</p></div>
-        <div class="price"><h4>حضوری</h4><div class="big">€69 / ساعت</div><p class="muted">عیب‌یابی، وای‌فای، کامپیوتر، مشاوره.</p></div>
-        <div class="price"><h4>سرور / NAS</h4><div class="big">€89 / ساعت</div><p class="muted">نصب، بکاپ، دسترسی کاربران، مستندسازی.</p></div>
+      <div class="grid">
+        <article class="card price"><h4>ریموت</h4><div class="big">€39 / ۳۰ دقیقه</div><p class="muted">از طریق TeamViewer یا AnyDesk.</p></article>
+        <article class="card price"><h4>حضوری</h4><div class="big">€69 / ساعت</div><p class="muted">عیب‌یابی، وای‌فای، کامپیوتر، مشاوره.</p></article>
+        <article class="card price"><h4>سرور / NAS</h4><div class="big">€89 / ساعت</div><p class="muted">نصب، بکاپ، دسترسی کاربران، مستندسازی.</p></article>
       </div>
       <p class="tiny">*قیمت‌ها راهنما هستند (هزینه رفت‌وآمد/قطعات در صورت نیاز اضافه می‌شود). قیمت نهایی پس از هماهنگی کوتاه.</p>
     </section>
 
-    <section id="kontakt-fa" class="container lang-fa" style="padding:60px 0">
+    <section id="kontakt-fa" class="container lang-fa pad">
       <h2 class="section-title">تماس</h2>
       <div class="card">
         <p>📧 <a href="mailto:info@tashtech.de">info@tashtech.de</a><br>📍Frankfurt am Main</p>
@@ -191,25 +283,40 @@
   </footer>
 
   <script>
+    // i18n ساده
     const i18n = {
       de: { nav_services:'Leistungen', nav_about:'Über mich', nav_prices:'Preise', nav_contact:'Kontakt' },
       fa: { nav_services:'خدمات',     nav_about:'درباره من',  nav_prices:'تعرفه‌ها', nav_contact:'تماس' }
     };
     function applyI18n(lang){
       document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const key = el.getAttribute('data-i18n'); 
-        const txt = i18n[lang] && i18n[lang][key]; 
+        const key = el.getAttribute('data-i18n');
+        const txt = i18n[lang] && i18n[lang][key];
         if(txt) el.textContent = txt;
       });
+      document.documentElement.lang = (lang==='fa'?'fa':'de');
+      // برای دسترسی‌پذیری: عنوان دکمه منو
+      const tgl = document.querySelector('.nav-toggle');
+      if (tgl) tgl.setAttribute('aria-label', lang==='fa' ? 'باز کردن منو' : 'Menü öffnen');
     }
     function setLang(l){
       document.documentElement.setAttribute('data-lang', l);
-      document.documentElement.lang = (l==='fa'?'fa':'de');
       applyI18n(l);
     }
-    // init
-    applyI18n(document.documentElement.getAttribute('data-lang') || 'de');
+
+    // سال فوتر
     document.getElementById('y').textContent=new Date().getFullYear();
+
+    // مقدار اولیه زبان
+    applyI18n(document.documentElement.getAttribute('data-lang') || 'de');
+
+    // منوی همبرگری
+    const header = document.getElementById('topNav').parentElement;
+    const btn = document.querySelector('.nav-toggle');
+    btn?.addEventListener('click', ()=>{
+      header.classList.toggle('nav--open');
+      btn.setAttribute('aria-expanded', header.classList.contains('nav--open'));
+    });
   </script>
 </body>
 </html>
