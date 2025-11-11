@@ -17,15 +17,19 @@
     body{margin:0;background:linear-gradient(180deg,#0b1220 0%,#0b1220 30%,#0a1020 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial}
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
+
     header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(11,18,32,.85);border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
     .container{max-width:1120px;margin-inline:auto;padding:0 20px}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:88px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:88px;gap:12px}
     .logo{display:flex;align-items:center;gap:14px}
     .logo img{height:56px;width:auto;display:block}
     .brand{font-family:Exo,Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial;font-weight:700;letter-spacing:.3px;font-size:22px}
-    nav a{margin-left:28px}
+
+    /* desktop menu */
+    nav#mainmenu a{margin-left:28px}
     .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
     .btn:hover{background:rgba(255,255,255,.08)}
+
     /* Language switch visible and highlighted */
     .lang-switch{display:flex;gap:10px;align-items:center}
     .lang-switch .btn{border:1px solid rgba(45,212,191,.7); background:rgba(45,212,191,.18); color:#e6fffb; font-weight:700; letter-spacing:.2px}
@@ -34,10 +38,17 @@
       background:var(--brand); color:#0b1220; border-color:var(--brand);
       box-shadow:0 0 0 2px rgba(45,212,191,.25) inset;
     }
+
+    /* hamburger (hidden on desktop) */
+    .hamburger{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text)}
+    .hamburger svg{width:22px;height:22px}
+
+    /* Hero and sections */
     .hero{padding:100px 0 60px;border-bottom:1px solid rgba(255,255,255,.06)}
     .hero h1{font-size:clamp(28px,5vw,52px);line-height:1.1;margin:0 0 16px}
     .hero p{color:var(--muted);max-width:820px}
     .badge{border:1px solid rgba(255,255,255,.14);padding:8px 12px;border-radius:999px;color:#cbd5e1;background:rgba(255,255,255,.04);display:inline-block;margin:6px 6px 0 0}
+
     .grid{display:grid;gap:18px}
     @media(min-width:900px){.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}}
     .card{background:linear-gradient(180deg,#0f172a,#0b1220);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px}
@@ -59,12 +70,33 @@
     html[data-lang="fa"] .lang-de{display:none}
     html[data-lang="fa"] .lang-fa{display:block}
     html[data-lang="fa"]{direction:rtl}
-    html[data-lang="fa"] nav a{margin-right:28px;margin-left:0}
+    html[data-lang="fa"] nav#mainmenu a{margin-right:0;margin-left:0}
 
-    /* سکشن‌ها زیر هدر مخفی نشن */
-    section{scroll-margin-top:96px}
+    /* Mobile menu styles */
+    @media (max-width: 900px){
+      .hamburger{display:inline-flex}
+      /* hide desktop menu by default */
+      nav#mainmenu{
+        position:fixed;
+        top:76px; /* header height ~ */
+        right:12px; left:12px;
+        display:none;
+        flex-direction:column;
+        gap:10px;
+        padding:14px;
+        background:rgba(11,18,32,.98);
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:16px;
+        z-index:60;
+      }
+      nav#mainmenu a{margin:0; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08)}
+      nav#mainmenu.open{display:flex}
+      /* move lang switch next to burger */
+      .lang-switch{gap:8px}
+      .nav{height:72px}
+    }
 
-    @media print{header,.btn,.lang-switch{display:none !important} body{background:#fff;color:#000} .card{border:1px solid #ddd;background:#fff}}
+    @media print{header,.btn,.lang-switch,.hamburger{display:none !important} body{background:#fff;color:#000} .card{border:1px solid #ddd;background:#fff}}
   </style>
 </head>
 <body>
@@ -74,13 +106,21 @@
         <img src="logo_header.png" alt="TashTech.de Logo">
         <span class="brand">TashTech.de</span>
       </div>
-      <nav>
-        <!-- IDs اضافه شد تا مقصدشان را بر اساس زبان عوض کنیم -->
-        <a id="lnk-services" data-i18n="nav_services" href="#services">Leistungen</a>
-        <a id="lnk-about"    data-i18n="nav_about"    href="#about">Über mich</a>
-        <a id="lnk-prices"   data-i18n="nav_prices"   href="#preise">Preise</a>
-        <a id="lnk-contact"  data-i18n="nav_contact"  href="#kontakt" class="btn">Kontakt</a>
+
+      <!-- hamburger button (mobile) -->
+      <button id="menuToggle" class="hamburger" aria-expanded="false" aria-controls="mainmenu" aria-label="Menü">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+
+      <nav id="mainmenu">
+        <a data-i18n="nav_services" href="#services">Leistungen</a>
+        <a data-i18n="nav_about" href="#about">Über mich</a>
+        <a data-i18n="nav_prices" href="#preise">Preise</a>
+        <a data-i18n="nav_contact" href="#kontakt" class="btn">Kontakt</a>
       </nav>
+
       <div class="lang-switch">
         <button id="btn-de" class="btn" onclick="setLang('de')" aria-label="Deutsch" type="button">DE</button>
         <button id="btn-fa" class="btn" onclick="setLang('fa')" aria-label="Persisch" type="button">FA</button>
@@ -197,10 +237,12 @@
   </footer>
 
   <script>
-    // ترجمه متن منو
+    /* i18n labels */
     const i18n = {
-      de: { nav_services:'Leistungen', nav_about:'Über mich', nav_prices:'Preise', nav_contact:'Kontakt' },
-      fa: { nav_services:'خدمات',     nav_about:'درباره من',  nav_prices:'تعرفه‌ها', nav_contact:'تماس' }
+      de: { nav_services:'Leistungen', nav_about:'Über mich', nav_prices:'Preise', nav_contact:'Kontakt',
+            href_services:'#services', href_about:'#about', href_prices:'#preise', href_contact:'#kontakt' },
+      fa: { nav_services:'خدمات',     nav_about:'درباره من',  nav_prices:'تعرفه‌ها', nav_contact:'تماس',
+            href_services:'#services-fa', href_about:'#about-fa', href_prices:'#preise-fa', href_contact:'#kontakt-fa' }
     };
 
     function applyI18n(lang){
@@ -209,42 +251,46 @@
         const txt = i18n[lang] && i18n[lang][key];
         if(txt) el.textContent = txt;
       });
-    }
-
-    // مقصد لینک‌های منو بر اساس زبان
-    function setNavTargets(lang) {
-      const map = {
-        de: {
-          services: '#services',
-          about:    '#about',
-          prices:   '#preise',
-          contact:  '#kontakt'
-        },
-        fa: {
-          services: '#services-fa',
-          about:    '#about-fa',
-          prices:   '#preise-fa',
-          contact:  '#kontakt-fa'
-        }
-      };
-      const t = map[lang] || map.de;
-      document.getElementById('lnk-services').setAttribute('href', t.services);
-      document.getElementById('lnk-about').setAttribute('href',    t.about);
-      document.getElementById('lnk-prices').setAttribute('href',   t.prices);
-      document.getElementById('lnk-contact').setAttribute('href',  t.contact);
+      // update menu anchors to language sections
+      const m = document.getElementById('mainmenu').querySelectorAll('a');
+      m[0].setAttribute('href', i18n[lang].href_services);
+      m[1].setAttribute('href', i18n[lang].href_about);
+      m[2].setAttribute('href', i18n[lang].href_prices);
+      m[3].setAttribute('href', i18n[lang].href_contact);
     }
 
     function setLang(l){
       document.documentElement.setAttribute('data-lang', l);
       document.documentElement.lang = (l==='fa'?'fa':'de');
       applyI18n(l);
-      setNavTargets(l); // مهم: لینک‌های منو را هم‌زمان تغییر بده
+      closeMenu(); // بستن منو بعد از تغییر زبان روی موبایل
     }
+
+    // hamburger logic
+    const menu = document.getElementById('mainmenu');
+    const menuBtn = document.getElementById('menuToggle');
+
+    function closeMenu(){
+      menu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded','false');
+    }
+    function openMenu(){
+      menu.classList.add('open');
+      menuBtn.setAttribute('aria-expanded','true');
+    }
+
+    menuBtn.addEventListener('click', ()=>{
+      if(menu.classList.contains('open')) closeMenu(); else openMenu();
+    });
+
+    // بستن منو بعد از کلیک روی لینک
+    menu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', closeMenu);
+    });
 
     // init
     const initial = document.documentElement.getAttribute('data-lang') || 'de';
     applyI18n(initial);
-    setNavTargets(initial);
     document.getElementById('y').textContent=new Date().getFullYear();
   </script>
 </body>
